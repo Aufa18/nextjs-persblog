@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
 :root {
+  /* --- LIGHT MODE --- */
   --background: #ffffff;
   --foreground: #171717;
+  --card-bg: #f9fafb; /* Abu-abu sangat terang untuk area Profile/Card */
+  --border-color: #e5e7eb;
 }
 
 @theme inline {
@@ -10,17 +13,24 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  
+  /* Menambahkan custom color agar bisa dipanggil di class Tailwind */
+  --color-card: var(--card-bg);
+  --color-border: var(--border-color);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* --- DARK MODE --- */
+/* Gunakan .dark agar sinkron dengan tombol klik, bukan bawaan OS (media query) */
+.dark {
+  --background: #212121; /* Warna background utama pada gambar */
+  --foreground: #ededed; /* Warna teks utama */
+  --card-bg: #1e1e1e;    /* Warna background card/sidebar pada gambar */
+  --border-color: #27272a;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Efek transisi halus saat ganti tema */
 }
