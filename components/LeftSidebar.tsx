@@ -17,14 +17,14 @@ export default function LeftSidebar({ selectedTag, onSelectTag }: LeftSidebarPro
         <li>
           <button
             type="button"
-            onClick={() => onSelectTag(null)}
+            onClick={() => onSelectTag(null)} // null berarti tidak ada filter tag
             className={`block w-full text-left px-3 py-1.5 -ml-3 rounded-lg text-sm transition-colors ${
               selectedTag === null
-                ? 'bg-foreground/10 text-foreground'
+                ? 'bg-foreground/10 text-foreground font-medium' // Style saat aktif
                 : 'text-foreground/70 hover:bg-foreground/10'
             }`}
           >
-            All Posts
+            All
           </button>
         </li>
         {tags.map((tag) => (

@@ -5,15 +5,26 @@ import PostCard from '@/components/PostCard';
 import LeftSidebar from '@/components/LeftSidebar';
 import RightSidebar from '@/components/RightSidebar';
 import { posts } from '@/data/blogData';
+// Pastikan Anda mengimpor ikon dari react-icons (atau lucide-react jika Anda pakai itu)
+import { FiChevronDown } from 'react-icons/fi';
 
 export default function Home() {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  
+  // 1. State baru untuk Kategori
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+
+  // 2. Ekstrak daftar kategori unik dari data posts (Otomatis)
+  const categories = Array.from(new Set(posts.map((post) => post.category)));
 
   const normalizedQuery = searchQuery.trim().toLowerCase();
 
+  // 3. Logika Filter Diperbarui (Mencakup Tag, Search, DAN Kategori)
   const filteredPosts = posts.filter((post) => {
     const matchesTag = !selectedTag || post.tags.includes(selectedTag);
+    const matchesCategory = !selectedCategory || post.category === selectedCategory;
     const searchableText = [
       post.title,
       post.summary ?? '',
@@ -25,7 +36,8 @@ export default function Home() {
 
     const matchesSearch = !normalizedQuery || searchableText.includes(normalizedQuery);
 
-    return matchesTag && matchesSearch;
+    // Harus lolos ketiga filter ini
+    return matchesTag && matchesSearch && matchesCategory;
   });
 
   return (
@@ -35,7 +47,7 @@ export default function Home() {
         <LeftSidebar selectedTag={selectedTag} onSelectTag={setSelectedTag} />
       </aside>
 
-      {/* 2. Tengah: Search & Posts (Bisa di-scroll karena tidak sticky) */}
+      {/* 2. Tengah: Search & Posts */}
       <section className="flex-1 min-w-0">
         {/* Search Bar */}
         <div className="mb-6">
@@ -52,35 +64,82 @@ export default function Home() {
         </div>
 
         {/* Filter & Judul */}
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-4">
-          <div>
-            <h3 className="font-bold text-lg flex items-center gap-2">
-              <span>📂</span>{' '}
-              {selectedTag
-                ? `Posts tagged "${selectedTag}"`
-                : searchQuery
-                  ? `Search results for "${searchQuery}"`
-                  : 'All Posts'}
-            </h3>
-            {(selectedTag || searchQuery) && (
-              <p className="text-sm text-foreground/60 mt-1">
-                Showing {filteredPosts.length} post{filteredPosts.length === 1 ? '' : 's'}.
-              </p>
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-4 relative">
+          
+          {/* Dropdown Kategori (Relative Container) */}
+          <div className="relative">
+            <button
+              onClick={() => setIsCategoryOpen(!isCategoryOpen)}
+              className="font-bold text-lg flex items-center gap-2 hover:opacity-80 transition-opacity focus:outline-none group"
+            >
+              {searchQuery
+                ? `Search results for "${searchQuery}"`
+                : selectedCategory || '📂 All Posts'}
+                
+              {/* Ikon Panah (disembunyikan saat sedang mencari sesuatu) */}
+              {!searchQuery && (
+                <FiChevronDown 
+                  className={`w-5 h-5 transition-transform duration-300 ${isCategoryOpen ? 'rotate-180' : ''}`} 
+                />
+              )}
+            </button>
+
+            {/* Menu List Kategori (Absolute Popup) */}
+            {isCategoryOpen && !searchQuery && (
+              <div className="absolute top-full left-0 mt-2 w-48 bg-card border border-border rounded-xl shadow-lg z-20 p-2 flex flex-col gap-1">
+                <button
+                  onClick={() => {
+                    setSelectedCategory(null);
+                    setIsCategoryOpen(false);
+                  }}
+                  className={`text-left px-3 py-2 text-sm rounded-lg transition-colors ${
+                    selectedCategory === null ? 'bg-foreground/10 text-foreground font-medium' : 'text-foreground/70 hover:bg-foreground/5'
+                  }`}
+                >
+                  All Posts
+                </button>
+                
+                {categories.map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => {
+                      setSelectedCategory(cat);
+                      setIsCategoryOpen(false);
+                    }}
+                    className={`text-left px-3 py-2 text-sm rounded-lg transition-colors ${
+                      selectedCategory === cat ? 'bg-foreground/10 text-foreground font-medium' : 'text-foreground/70 hover:bg-foreground/5'
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
             )}
           </div>
 
-          {(selectedTag || searchQuery) && (
-            <button
-              type="button"
-              onClick={() => {
-                setSelectedTag(null);
-                setSearchQuery('');
-              }}
-              className="text-sm text-foreground/70 hover:text-foreground transition-colors"
-            >
-              Clear filters
-            </button>
-          )}
+          <div className="flex items-center gap-4">
+            {(searchQuery || selectedCategory) && (
+              <p className="text-sm text-foreground/60">
+                Showing {filteredPosts.length} post{filteredPosts.length === 1 ? '' : 's'}.
+              </p>
+            )}
+
+            {/* Tombol Clear Filters Diperbarui */}
+            {(searchQuery || selectedCategory) && (
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedTag(null);
+                  setSelectedCategory(null);
+                  setSearchQuery('');
+                  setIsCategoryOpen(false);
+                }}
+                className="text-sm text-foreground/70 hover:text-foreground transition-colors"
+              >
+                Clear filters
+              </button>
+            )}
+          </div>
         </div>
 
         {/* List Artikel */}
