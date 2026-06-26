@@ -1,21 +1,21 @@
 export const profileData = {
-  name: "morethanmin", // 
+  name: "Aufa Wicaksono", // 
   role: "frontend developer", // 
   bio: "I develop everything using node.", // 
 };
 
 export const tags = [
-  "Docs", "Morethanlog", "SEO", "Blog", "Next.js", 
+  "Docs", "Aufa", "SEO", "Blog", "Next.js", 
   "GraphQL", "Apollo", "Rest", "GA", "OpenSource", "Github"
 ]; // [cite: 1, 2]
 
 export const posts = [
   {
     id: "1",
-    title: "Welcome to morethan log!", // [cite: 2]
+    title: "Welcome to Aufa Blog!", // [cite: 2]
     category: "📗 Docs",
     date: "Jan 21, 2023", // [cite: 3]
-    tags: ["Docs", "Morethanlog"], // [cite: 3]
+    tags: ["Docs", "Aufa"], // [cite: 3]
     link: "/docs" // [cite: 3]
   },
   {

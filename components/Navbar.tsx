@@ -10,24 +10,27 @@ export default function Navbar() {
   useEffect(() => setMounted(true), []);
 
   return (
-    <nav className="sticky top-0 z-50 flex items-center justify-between py-6 backdrop-blur-md">
+    <nav className="sticky top-0 z-50 w-full backdrop-blur-md">
+      <div className="max-w-300 mx-auto px-6 flex items-center justify-between py-6">
+
       <Link href="/" className="text-lg font-bold">
-        morethan-log
+        Aufa-Wicaksono
       </Link>
       <div className="flex items-center space-x-6 text-sm">
         {mounted && (
           <button 
-            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            className="text-lg hover:opacity-80 transition-opacity"
-            aria-label="Toggle Dark Mode"
+          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+          className="text-lg hover:opacity-80 transition-opacity"
+          aria-label="Toggle Dark Mode"
           >
             {theme === 'dark' ? '🌙' : '☀️'}
           </button>
         )}
-        <Link href="/about" className="text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition">
+        <Link href="/about" className="text-foreground/70 dark:text-foreground/70 hover:text-foreground transition">
           About
         </Link>
       </div>
+        </div>
     </nav>
   );
 }

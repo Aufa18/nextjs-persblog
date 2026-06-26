@@ -9,8 +9,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       {/* Background utama menyesuaikan tema */}
       <body className="bg-background text-foreground">
         <Providers>
-          <div className="max-w-300 mx-auto px-6 min-h-screen flex flex-col">
             <Navbar />
+          <div className="max-w-300 mx-auto px-6 min-h-screen flex flex-col">
             <main className="grow">{children}</main>
             <Footer />
           </div>
