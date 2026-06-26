@@ -1,7 +1,7 @@
 export const profileData = {
   name: "Aufa Wicaksono", // 
-  role: "frontend developer", // 
-  bio: "I develop everything using node.", // 
+  role: "Full Stack developer", // 
+  bio: "Build everything with node", // 
 };
 
 export const tags = [

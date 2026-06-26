@@ -10,7 +10,7 @@ export default function PostCard({ post, isFeatured }: PostProps) {
     <Link href={post.link} className="block group">
       <div className="p-5 bg-card border border-border rounded-2xl hover:shadow-lg transition-all">
 
-        <h3 className="text-xl font-bold text-foreground mb-4 transition-colors">
+        <h3 className="text-xl font-semibold text-foreground/80 mb-4 transition-colors">
           {post.title}
         </h3>
 

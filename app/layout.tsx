@@ -6,7 +6,6 @@ import Footer from '@/components/Footer';
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      {/* Background utama menyesuaikan tema */}
       <body className="bg-background text-foreground">
         <Providers>
             <Navbar />

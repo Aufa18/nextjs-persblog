@@ -13,7 +13,7 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 w-full backdrop-blur-md">
       <div className="max-w-300 mx-auto px-6 flex items-center justify-between py-6">
 
-      <Link href="/" className="text-lg font-bold">
+      <Link href="/" className="text-lg font-bold text-foreground/80">
         Aufa-Wicaksono
       </Link>
       <div className="flex items-center space-x-6 text-sm">
@@ -26,7 +26,7 @@ export default function Navbar() {
             {theme === 'dark' ? '🌙' : '☀️'}
           </button>
         )}
-        <Link href="/about" className="text-foreground/70 dark:text-foreground/70 hover:text-foreground transition">
+        <Link href="/about" className="text-foreground/80 hover:text-foreground transition">
           About
         </Link>
       </div>

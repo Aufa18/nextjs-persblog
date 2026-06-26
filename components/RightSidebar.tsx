@@ -30,7 +30,7 @@ export default function RightSidebar() {
             <span className="text-4xl">🧑🏻‍💻</span>
           </div>
           
-          <h2 className="relative z-10 text-lg font-bold text-foreground">
+          <h2 className="relative z-10 text-lg font-bold text-foreground/80">
             {profileData.name}
           </h2>
           <p className="relative z-10 text-sm text-foreground/60 mb-4">{profileData.role}</p>

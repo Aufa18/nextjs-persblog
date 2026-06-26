@@ -5,23 +5,19 @@ import PostCard from '@/components/PostCard';
 import LeftSidebar from '@/components/LeftSidebar';
 import RightSidebar from '@/components/RightSidebar';
 import { posts } from '@/data/blogData';
-// Pastikan Anda mengimpor ikon dari react-icons (atau lucide-react jika Anda pakai itu)
 import { FiChevronDown } from 'react-icons/fi';
 
 export default function Home() {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   
-  // 1. State baru untuk Kategori
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
 
-  // 2. Ekstrak daftar kategori unik dari data posts (Otomatis)
   const categories = Array.from(new Set(posts.map((post) => post.category)));
 
   const normalizedQuery = searchQuery.trim().toLowerCase();
 
-  // 3. Logika Filter Diperbarui (Mencakup Tag, Search, DAN Kategori)
   const filteredPosts = posts.filter((post) => {
     const matchesTag = !selectedTag || post.tags.includes(selectedTag);
     const matchesCategory = !selectedCategory || post.category === selectedCategory;
@@ -36,7 +32,6 @@ export default function Home() {
 
     const matchesSearch = !normalizedQuery || searchableText.includes(normalizedQuery);
 
-    // Harus lolos ketiga filter ini
     return matchesTag && matchesSearch && matchesCategory;
   });
 
@@ -70,7 +65,7 @@ export default function Home() {
           <div className="relative">
             <button
               onClick={() => setIsCategoryOpen(!isCategoryOpen)}
-              className="font-bold text-lg flex items-center gap-2 hover:opacity-80 transition-opacity focus:outline-none group"
+              className="font-semibold text-foreground/80 text-lg flex items-center gap-2 hover:opacity-80 transition-opacity focus:outline-none group"
             >
               {searchQuery
                 ? `Search results for "${searchQuery}"`
