@@ -1,16 +1,43 @@
 import { tags } from '@/data/blogData';
+import { FaTags } from 'react-icons/fa';
 
-export default function LeftSidebar() {
+interface LeftSidebarProps {
+  selectedTag: string | null;
+  onSelectTag: (tag: string | null) => void;
+}
+
+export default function LeftSidebar({ selectedTag, onSelectTag }: LeftSidebarProps) {
   return (
     <div>
       <h3 className="font-semibold mb-4 flex items-center gap-2 text-foreground/80">
-        <span>🏷</span> Tags
+        <FaTags className="w-5 h-5" />
+        Tags
       </h3>
       <ul className="space-y-1">
+        <li>
+          <button
+            type="button"
+            onClick={() => onSelectTag(null)}
+            className={`block w-full text-left px-3 py-1.5 -ml-3 rounded-lg text-sm transition-colors ${
+              selectedTag === null
+                ? 'bg-foreground/10 text-foreground'
+                : 'text-foreground/70 hover:bg-foreground/10'
+            }`}
+          >
+            All Posts
+          </button>
+        </li>
         {tags.map((tag) => (
           <li key={tag}>
-            {/* Efek hover otomatis berubah mengikuti tema (Light ke gelap, Dark ke terang) */}
-            <button className="block w-full text-left px-3 py-1.5 -ml-3 rounded-lg text-sm text-foreground/70 hover:bg-foreground/10 transition-colors">
+            <button
+              type="button"
+              onClick={() => onSelectTag(tag)}
+              className={`block w-full text-left px-3 py-1.5 -ml-3 rounded-lg text-sm transition-colors ${
+                selectedTag === tag
+                  ? 'bg-foreground/10 text-foreground'
+                  : 'text-foreground/70 hover:bg-foreground/10'
+              }`}
+            >
               {tag}
             </button>
           </li>
