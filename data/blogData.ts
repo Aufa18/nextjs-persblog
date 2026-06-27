@@ -1,12 +1,11 @@
 export const profileData = {
   name: "Aufa Wicaksono", // 
-  role: "Full Stack developer", // 
-  bio: "Build everything with node", // 
+  role: "Full Stack Developer", // 
+  bio: "Build everything with Node", // 
 };
 
 export const tags = [
-  "Docs", "Aufa", "SEO", "Blog", "Next.js", 
-  "GraphQL", "Apollo"
+  "Blog", "AI", "GLM-5.2", "LLM", "Robotics", "Humanoid", "Technology"
 ]; // [cite: 1, 2]
 
 export const posts = [
@@ -14,26 +13,24 @@ export const posts = [
     id: "1",
     title: "Welcome to Aufa Blog!", // [cite: 2]
     category: "📗 Docs",
-    date: "Jan 21, 2023", // [cite: 3]
-    tags: ["Docs", "Aufa"], // [cite: 3]
+    date: "June 26, 2026", // [cite: 3]
+    tags: ["Blog"], // [cite: 3]
     link: "/docs" // [cite: 3]
   },
   {
     id: "2",
-    title: "Dynamically create sitemap.xml in Next.js", // [cite: 3]
-    summary: "Let's load the sitemap dynamically", // [cite: 3]
-    category: "💻 Frontend", // [cite: 3]
-    date: "Jun 30, 2022", // [cite: 3]
-    tags: ["SEO", "Blog", "Next.js"], // [cite: 3]
-    link: "/hot-to-make-sitemap-in-next-js" // [cite: 3]
+    title: "GLM-5.2: AI Open Model dari China yang Mulai Menantang Dominasi Claude Opus 4.8", // [cite: 2]
+    category: "⚡ Artificial Intelligent",
+    date: "June 27, 2026", // [cite: 3]
+    tags: ["AI", "GLM-5.2", "LLM"], // [cite: 3]
+    link: "/GLM-5.2_mendominasi_Claude_Opus_4.8" // [cite: 3]
   },
   {
     id: "3",
-    title: "Learn how apollo client manages asynchronous state through useMutation", // [cite: 4]
-    summary: "Let's try useMutation and see how it handles real asynchronous state.", // [cite: 4]
-    category: "💻 Frontend", // [cite: 4]
-    date: "Jun 28, 2022", // [cite: 4]
-    tags: ["Next.js", "GraphQL", "Apollo"], // [cite: 5]
-    link: "/apollo-gettings-started-mutate" // [cite: 5]
-  }
+    title: "Humanoid Robotics: Teknologi yang Diprediksi Menjadi Revolusi Berikutnya Setelah AI", // [cite: 2]
+    category: "🤖 Robotics",
+    date: "June 27, 2026", // [cite: 3]
+    tags: ["Robotics", "Humanoid", "Technology"], // [cite: 3]
+    link: "/Humanoid_Robotics" // [cite: 3]
+  },
 ];

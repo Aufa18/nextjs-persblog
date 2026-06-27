@@ -23,7 +23,6 @@ export default function Home() {
     const matchesCategory = !selectedCategory || post.category === selectedCategory;
     const searchableText = [
       post.title,
-      post.summary ?? '',
       post.category,
       ...post.tags,
     ]
