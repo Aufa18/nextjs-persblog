@@ -6,9 +6,10 @@ import LeftSidebar from '@/components/LeftSidebar';
 import RightSidebar from '@/components/RightSidebar';
 import { posts } from '@/data/blogData';
 import { FiChevronDown } from 'react-icons/fi';
+import { useSidebar } from '@/components/SidebarContext';
 
 export default function Home() {
-  const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const { selectedTag, setSelectedTag, isMobileSidebarOpen, closeMobileSidebar } = useSidebar();
   const [searchQuery, setSearchQuery] = useState('');
   
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -59,7 +60,6 @@ export default function Home() {
 
         {/* Filter & Judul */}
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 mb-4 relative">
-          
           {/* Dropdown Kategori (Relative Container) */}
           <div className="relative">
             <button
@@ -68,12 +68,12 @@ export default function Home() {
             >
               {searchQuery
                 ? `Search results for "${searchQuery}"`
-                : selectedCategory || '📂 All Posts'}
-                
+                : selectedCategory || "📂 All Posts"}
+
               {/* Ikon Panah (disembunyikan saat sedang mencari sesuatu) */}
               {!searchQuery && (
-                <FiChevronDown 
-                  className={`w-5 h-5 transition-transform duration-300 ${isCategoryOpen ? 'rotate-180' : ''}`} 
+                <FiChevronDown
+                  className={`w-5 h-5 transition-transform duration-300 ${isCategoryOpen ? "rotate-180" : ""}`}
                 />
               )}
             </button>
@@ -87,12 +87,14 @@ export default function Home() {
                     setIsCategoryOpen(false);
                   }}
                   className={`text-left px-3 py-2 text-sm rounded-lg transition-colors ${
-                    selectedCategory === null ? 'bg-foreground/10 text-foreground font-medium' : 'text-foreground/70 hover:bg-foreground/5'
+                    selectedCategory === null
+                      ? "bg-foreground/10 text-foreground font-medium"
+                      : "text-foreground/70 hover:bg-foreground/5"
                   }`}
                 >
                   All Posts
                 </button>
-                
+
                 {categories.map((cat) => (
                   <button
                     key={cat}
@@ -101,7 +103,9 @@ export default function Home() {
                       setIsCategoryOpen(false);
                     }}
                     className={`text-left px-3 py-2 text-sm rounded-lg transition-colors ${
-                      selectedCategory === cat ? 'bg-foreground/10 text-foreground font-medium' : 'text-foreground/70 hover:bg-foreground/5'
+                      selectedCategory === cat
+                        ? "bg-foreground/10 text-foreground font-medium"
+                        : "text-foreground/70 hover:bg-foreground/5"
                     }`}
                   >
                     {cat}
@@ -114,7 +118,8 @@ export default function Home() {
           <div className="flex items-center gap-4">
             {(searchQuery || selectedCategory) && (
               <p className="text-sm text-foreground/60">
-                Showing {filteredPosts.length} post{filteredPosts.length === 1 ? '' : 's'}.
+                Showing {filteredPosts.length} post
+                {filteredPosts.length === 1 ? "" : "s"}.
               </p>
             )}
 
@@ -125,7 +130,7 @@ export default function Home() {
                 onClick={() => {
                   setSelectedTag(null);
                   setSelectedCategory(null);
-                  setSearchQuery('');
+                  setSearchQuery("");
                   setIsCategoryOpen(false);
                 }}
                 className="text-sm text-foreground/70 hover:text-foreground transition-colors"
@@ -154,6 +159,26 @@ export default function Home() {
       <aside className="hidden lg:flex flex-col w-72 shrink-0 sticky top-24 self-start h-fit space-y-6">
         <RightSidebar />
       </aside>
+
+      {isMobileSidebarOpen && (
+        <div className="md:hidden fixed inset-0 z-50 flex">
+          <button
+            type="button"
+            onClick={closeMobileSidebar}
+            className="absolute inset-0 bg-black/40"
+            aria-label="Close tags menu"
+          />
+          <div className="relative w-[85vw] max-w-xs bg-card border-r border-border p-8 shadow-2xl overflow-y-auto">
+            <LeftSidebar
+              selectedTag={selectedTag}
+              onSelectTag={(tag) => {
+                setSelectedTag(tag);
+                closeMobileSidebar();
+              }}
+            />
+          </div>
+        </div>
+      )}
     </main>
   );
 }
